@@ -10,9 +10,40 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
- mensagem(){
-  alert('Hello World!');
- }
- 
+  constructor(){ 
+    this.getFuncionarios();
+
+
+  }
+
+  isLoading: boolean = false;
+  funcionarios: any;
+
+  getFuncionarios(){
+    this.isLoading = true;
+	
+		let funcionario = { CodFun: '2' };
+
+    fetch('http://localhost/api/v1/listar_funcionarios.php',
+			{
+			  method: 'POST',
+			  headers: {
+			    'Content-Type': 'application/json',
+			  },
+			  body: JSON.stringify(funcionario)
+			}
+		)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      this.funcionarios =  response.funcionarios;
+    })
+    .catch(erro => {
+      console.log(erro);
+    })
+    .finally(()=>{
+      this.isLoading = false;
+    })
+  }
 
 }
