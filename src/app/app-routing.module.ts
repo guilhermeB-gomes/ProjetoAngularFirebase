@@ -10,6 +10,14 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'armaduras',
+    loadChildren: () => import('./shared/components/armaduras/armaduras.module').then( m => m.ArmadurasPageModule)
+  },
+  {
+    path: 'espadas',
+    loadChildren: () => import('./shared/components/espadas/espadas.module').then( m => m.EspadasPageModule)
   }
 ];
 
